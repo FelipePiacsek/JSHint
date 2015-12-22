@@ -1,5 +1,5 @@
 package tasks;
 
 public enum TaskType {
-    INSERTION, REMOVAL;
+    INSERTION, REMOVAL, REPLACE;
 }

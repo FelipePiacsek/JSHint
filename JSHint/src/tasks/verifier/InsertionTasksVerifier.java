@@ -1,9 +1,12 @@
-package tasks;
+package tasks.verifier;
 
 import java.util.ArrayList;
 import java.util.List;
+import tasks.GlobalVariableTask;
+import tasks.ITask;
+import tasks.UseStrictTask;
 
-public class InsertTasksVerifier {
+public class InsertionTasksVerifier {
 
     public List<ITask> getInsertionTasks(String fileContent) {
         return findTasks(fileContent);
@@ -38,8 +41,16 @@ public class InsertTasksVerifier {
         GlobalVariableTask task = null;
         if (!fileContent.contains("/* global")) {
             task = new GlobalVariableTask();
-            if (fileContent.contains("React.createClass")) {
+            if (fileContent.contains("React.")) {
                 task.addVariable("React");
+            }
+
+            if (fileContent.contains("moment.")) {
+                task.addVariable("moment");
+            }
+
+            if (fileContent.contains("_.")) {
+                task.addVariable("_");
             }
 
             String lookUp = null;

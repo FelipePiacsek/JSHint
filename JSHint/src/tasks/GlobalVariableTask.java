@@ -20,9 +20,11 @@ public class GlobalVariableTask implements ITask {
     @Override
     public String getText() {
         StringBuilder sb = new StringBuilder();
-        sb.append("/* Global ");
-        sb.append(this.variables.toString().replace("[", "").replace("]", ""));
-        sb.append(" */");
+        if (!this.variables.isEmpty()) {
+            sb.append("/* global ");
+            sb.append(this.variables.toString().replace("[", "").replace("]", ""));
+            sb.append(" */");
+        }
         return sb.toString();
     }
 

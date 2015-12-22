@@ -8,14 +8,14 @@ import java.util.List;
 import main.io.FileSaver;
 import main.io.RootSource;
 import tasks.ITask;
-import tasks.InsertTasksVerifier;
 import tasks.TaskManager;
+import tasks.verifier.TasksVerifier;
 
 public class Aplicacao {
 
     private static RootSource rootSource = new RootSource();
 
-    private static InsertTasksVerifier taskVerifier = new InsertTasksVerifier();
+    private static TasksVerifier taskVerifier = new TasksVerifier();
 
     private static TaskManager taskManager = new TaskManager();
 
@@ -24,8 +24,9 @@ public class Aplicacao {
     public static void main(String[] args) throws IOException {
         List<File> files = rootSource.getJSFileList();
         for (File file : files) {
+            System.out.println(file.getName());
             String fileContent = new String(Files.readAllBytes(Paths.get(file.getPath())));
-            List<ITask> tasks = taskVerifier.getInsertionTasks(fileContent);
+            List<ITask> tasks = taskVerifier.getTasks(fileContent);
             String newContent = taskManager.execute(fileContent, tasks);
             fileSaver.saveFile(file, newContent);
         }
